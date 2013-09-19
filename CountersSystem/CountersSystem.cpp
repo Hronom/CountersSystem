@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-CountersSystem* CountersSystem::m_instance = NULL;
+CountersSystem* CountersSystem::m_instance = 0;
 
 bool CountersSystem::initialize()
 {
@@ -15,7 +15,7 @@ void CountersSystem::shutdown()
 {
     qDebug()<<"Shutdown:"<<"CountersSystem";
     delete m_instance;
-    m_instance = NULL;
+    m_instance = 0;
 }
 
 CountersSystem* CountersSystem::instance()
@@ -38,35 +38,43 @@ CountersSystem::~CountersSystem()
     }
 }
 
-void CountersSystem::addCounter(QString par_name)
+void CountersSystem::addCounter(const QString &par_name)
 {
     if(!m_counters.contains(par_name))
         m_counters.insert(par_name, new Counter());
 }
 
-void CountersSystem::removeCounter(QString par_name)
+void CountersSystem::removeCounter(const QString &par_name)
 {
-    if(!m_counters.contains(par_name))
-        delete m_counters.take(par_name);
+    Counter *counter;
+    counter = m_counters.take(par_name);
+
+    if(counter != 0)
+        delete counter;
 }
 
-void CountersSystem::removeName(QString par_counterName, QString par_name)
+void CountersSystem::removeName(const QString &par_counterName, const QString &par_name)
 {
-    if(m_counters.contains(par_counterName))
-    {
-        Counter *counter;
-        counter = m_counters.value(par_counterName);
+    Counter *counter;
+    counter = m_counters.value(par_counterName);
+
+    if(counter != 0)
         counter->removeName(par_name);
-    }
 }
 
-QString CountersSystem::getNameWithSuffix(QString par_counterName, QString par_name)
+QString CountersSystem::getNameWithSuffix(const QString &par_counterName, const QString &par_name)
 {
-    if(m_counters.contains(par_counterName))
-        return m_counters.value(par_counterName)->getNameWithSuffix(par_name);
+    Counter *counter;
+    counter = m_counters.value(par_counterName);
+
+    if(counter != 0)
+    {
+        return counter->getNameWithSuffix(par_name);
+    }
     else
     {
-        m_counters.insert(par_counterName, new Counter());
-        return m_counters.value(par_counterName)->getNameWithSuffix(par_name);
+        counter = new Counter();
+        m_counters.insert(par_counterName, counter);
+        return counter->getNameWithSuffix(par_name);
     }
 }

@@ -23,11 +23,11 @@ private:
     ~CountersSystem();
 
 public:
-    void addCounter(QString par_name);
-    void removeCounter(QString par_name);
+    void addCounter(const QString &par_name);
+    void removeCounter(const QString &par_name);
 
-    void removeName(QString par_counterName, QString par_name);
-    QString getNameWithSuffix(QString par_counterName, QString par_name);
+    void removeName(const QString &par_counterName, const QString &par_name);
+    QString getNameWithSuffix(const QString &par_counterName, const QString &par_name);
 };
 
 #endif

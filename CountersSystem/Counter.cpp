@@ -12,9 +12,9 @@ Counter::~Counter()
 
 }
 
-void Counter::removeName(QString par_name)
+void Counter::removeName(const QString &par_name)
 {
-    QHash<qint32, QString>::Iterator iter;
+    QHash<qint64, QString>::Iterator iter;
     iter = m_values.begin();
     while(iter != m_values.end())
     {
@@ -28,9 +28,9 @@ void Counter::removeName(QString par_name)
     }
 }
 
-QString Counter::getNameWithSuffix(QString par_name)
+QString Counter::getNameWithSuffix(const QString &par_name)
 {
-    QHash<qint32, QString>::Iterator iter;
+    QHash<qint64, QString>::Iterator iter;
     iter = m_values.begin();
     while(iter != m_values.end())
     {
@@ -45,7 +45,7 @@ QString Counter::getNameWithSuffix(QString par_name)
         ++iter;
     }
 
-    qint32 value;
+    qint64 value;
     value = m_values.size();
     QString nameWithSuffix;
     nameWithSuffix = par_name + QString::number(value);

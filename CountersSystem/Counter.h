@@ -8,14 +8,14 @@ class Counter
 {
 private:
     // Value - Key
-    QHash<qint32, QString> m_values;
+    QHash<qint64, QString> m_values;
 
 public:
     Counter();
     ~Counter();
 
-    void removeName(QString par_name);
-    QString getNameWithSuffix(QString par_name);
+    void removeName(const QString &par_name);
+    QString getNameWithSuffix(const QString &par_name);
 };
 
 #endif
